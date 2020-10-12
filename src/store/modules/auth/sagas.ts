@@ -14,23 +14,8 @@ export function* signIn({ payload }: ActionType<typeof actions.signInRequest>) {
 
     yield put(actions.signInSuccess({ token: data.token }));
   } catch (err) {
-    const errors = err.response?.data?.errors;
-    let errorMsg = err.response?.data?.message || '';
-    if(errors) {
-      // Concatena mensagens de cada campo individual
-      errors.forEach(
-        (error: {
-          value: string;
-          msg: string;
-          param: string;
-          location: string;
-        }) => {
-          errorMsg += '\n' + error.msg;
-        }
-      );
-
-    }
-    yield put(actions.signInFailure({ errorMsg }));
+    const { errors, message } = err.response?.data;
+    yield put(actions.signInFailure({ message, fieldErrors: errors }));
   }
 }
 

@@ -1,4 +1,5 @@
 import { action } from 'typesafe-actions';
+import { FieldError } from './types';
 
 export function signInRequest({
   username,
@@ -24,11 +25,14 @@ export function signInSuccess({
 }
 
 export function signInFailure({
-  errorMsg = ''
+  message,
+  fieldErrors
 }: {
-  errorMsg?: string;
+  message?: string;
+  fieldErrors?: FieldError[]
 }) {
   return action('@auth/SIGN_IN_FAILURE', {
-    errorMsg
+    errorMsg: message,
+    fieldErrors
   });
 }

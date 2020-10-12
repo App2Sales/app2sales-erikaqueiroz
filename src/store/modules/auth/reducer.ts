@@ -1,10 +1,11 @@
 import { AuthState, AuthAction } from "./types";
 
-const initialState = {
+const initialState: AuthState = {
   loadingSignInRequest: false,
   isSignedIn: false,
   error: false,
   errorMsg: '',
+  fieldErrors: [],
   token: '',
 };
 
@@ -15,6 +16,7 @@ export default function auth(state = initialState, action: AuthAction): AuthStat
         ...state,
         loadingSignInRequest: true,
         error: false,
+        fieldErrors: [],
         errorMsg: '',
         token: '',
       };
@@ -31,7 +33,7 @@ export default function auth(state = initialState, action: AuthAction): AuthStat
         loadingSignInRequest: false,
         isSignedIn: false,
         error: true,
-        token: '',
+        fieldErrors: action.payload.fieldErrors,
         errorMsg: action.payload.errorMsg,
       };
     default:

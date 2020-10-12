@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Button, Alert } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -8,35 +8,60 @@ import { signInRequest } from '../../store/modules/auth/actions';
 import { useHistory } from 'react-router-dom';
 
 const FormLogin = () => {
-
   let history = useHistory();
-  const { loadingSignInRequest, error, errorMsg, isSignedIn } = useSelector(
-    (state: StoreState) => state.auth
-  );
+  const {
+    loadingSignInRequest,
+    error,
+    errorMsg,
+    token,
+    fieldErrors,
+  } = useSelector((state: StoreState) => state.auth);
+
+  const [form] = Form.useForm();
   const dispatch = useDispatch();
 
-  if (isSignedIn) {
-    history.replace({ pathname: '/minhaconta' })
+  if (token) {
+    history.replace({ pathname: '/minhaconta' });
   }
 
-  const onFinish = (credenciais: {
-    usuario: string;
-    password: string;
-  }) => {
+  const onFinish = async (credenciais: { usuario: string; password: string }) => {
     const { usuario, password } = credenciais;
-    dispatch(signInRequest({
-      username: usuario,
-      password
-    }));
+    dispatch(
+      signInRequest({
+        username: usuario,
+        password,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if(fieldErrors?.length) {
+      form.validateFields();
+    }
+  }, [fieldErrors, form])
+
+  const validateField = async (field: string, value: string) => {
+    console.log('field',field)
+    const error = fieldErrors?.find((error) => error.param === field);
+    console.log('error',error)
+    if (error && value === error.value) {
+      return Promise.reject(error.msg);
+    }
+    return Promise.resolve();
   };
 
   return (
     <div className='form-container'>
-      <Form name='login' className='form-login' onFinish={onFinish}>
+      <Form form={form} name='login' className='form-login' onFinish={onFinish}>
         {error && errorMsg && <Alert type='error' message={errorMsg} />}
         <Form.Item
           name='usuario'
-          rules={[{ required: true, message: 'Informe seu usuário!' }]}
+          rules={[
+            { required: true, message: 'Informe seu usuário!' },
+            {
+              validator: (_, value) => validateField('usuario', value),
+            },
+          ]}
         >
           <Input
             prefix={<UserOutlined className='site-form-item-icon' />}
@@ -45,7 +70,12 @@ const FormLogin = () => {
         </Form.Item>
         <Form.Item
           name='password'
-          rules={[{ required: true, message: 'Informe uma senha' }]}
+          rules={[
+            { required: true, message: 'Informe uma senha' },
+            {
+              validator: (_, value) => validateField('password', value),
+            },
+          ]}
         >
           <Input
             prefix={<LockOutlined className='site-form-item-icon' />}
