@@ -1,0 +1,39 @@
+.area-interna {
+  h1, h2, h3 {
+    text-align: left;
+    padding-left: 1em;
+  }
+  .ant-tabs {
+    flex: 1;
+    .ant-tabs-tab {
+      margin: 0;
+    }
+    .ant-tabs-nav {
+      border-top: 1px solid #eee;
+    }
+  }
+  .ant-tabs-nav-list {
+    justify-content: space-evenly;
+    flex: 1;
+  }
+  .menu-item {
+    display: flex;
+    flex-direction: column;
+    .anticon {
+      margin-right: 0;
+    }
+    .icone {
+      font-size: 1.6rem;
+      padding: 0 1em;
+    }
+    .texto {
+      font-size: 0.7rem;
+    }
+  }
+
+  .filtroativo {
+    .ant-page-header-heading-extra {
+      width: 100%;
+    }
+  }
+}
