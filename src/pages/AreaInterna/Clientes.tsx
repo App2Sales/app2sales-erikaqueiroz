@@ -42,7 +42,7 @@ const Clientes = ({ filtro = '' }: ClientesProps) => {
   }
   return (
     <Content>
-      {filtro && <Title level={2}>Pessoas</Title>}
+      {filtro && <Title level={2}>Clientes</Title>}
       <div className='lista-clientes'>
         {clientesFiltrados.map((cliente) => {
           return (

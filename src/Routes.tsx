@@ -17,7 +17,7 @@ const Routes = () => {
     <PrivateRoute auth={isSignedIn} path='/minhaconta'>
       <AreaInterna />
     </PrivateRoute>
-    <Route exact path='/' component={Home} />
+    <Route exact path='/' component={Login} />
     <Route path='/login' component={Login} />
     <Route path='/cadastrar' component={Cadastro} />
     <Route path='/sobre' component={Sobre} />

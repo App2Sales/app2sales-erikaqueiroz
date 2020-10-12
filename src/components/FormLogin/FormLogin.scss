@@ -1,11 +1,11 @@
 .form-login {
   width: 100%;
-  max-width: 400px;
-  background-color: white;
+  background-color: #F6F4F4;
+  max-width: 500px;
   padding: 20px;
+  img { max-width: 100%;}
   @media (min-width: 410px) {
     margin: 5px;
-    border-radius: 5px;
   }
 }
 
@@ -14,12 +14,19 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  @media (min-width: 410px) {
-    align-items: center;
-  }
+  align-items: center;
   flex-grow: 1;
+  background-color: #F6F4F4;
 }
 
 .login-form-button {
   margin: 5px;
+  background-color: #91827B;
+  color: white;
+  border: 0;
+}
+
+.login-form-forgot {
+  color: #91827B;
+  text-transform: uppercase;
 }

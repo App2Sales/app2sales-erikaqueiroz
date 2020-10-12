@@ -7,10 +7,12 @@ import {
   HomeOutlined,
   UserOutlined,
   SettingOutlined,
+  MessageOutlined,
 } from '@ant-design/icons';
 import './AreaInterna.scss';
 import Clientes from './Clientes';
 import FiltroBusca from '../../components/FiltroBusca/FiltroBusca';
+import logo from '../../assets/eqlogodark.png';
 
 const { TabPane } = Tabs;
 
@@ -29,7 +31,7 @@ const MenuItem: FunctionComponent<PropsMenuItem> = ({ icone, texto }) => {
 };
 
 export const AreaInterna: FunctionComponent = () => {
-  const [titulo, setTitulo] = useState('Itens');
+  const [titulo, setTitulo] = useState('Projetos');
   const [filtroAtivo, setFiltroAtivo] = useState(false);
   const [filtro, setFiltro] = useState('');
 
@@ -37,6 +39,9 @@ export const AreaInterna: FunctionComponent = () => {
     switch (activeIndex) {
       case 'pessoas':
         setTitulo('Pessoas');
+        break;
+      case 'chat':
+        setTitulo('Chat');
         break;
       case 'config':
         setTitulo('Configurações');
@@ -50,6 +55,9 @@ export const AreaInterna: FunctionComponent = () => {
   if(filtroAtivo && filtro) {
     return (
       <Layout className='area-interna'>
+        <div className='header-preto'>
+          <img src={logo} alt='erika queiroz' />
+        </div>
         <PageHeader
           className={filtroAtivo ? 'filtroativo' : ''}
           title={filtroAtivo ? '' : titulo}
@@ -69,6 +77,9 @@ export const AreaInterna: FunctionComponent = () => {
 
   return (
     <Layout className='area-interna'>
+      <div className='header-preto'>
+        <img src={logo} alt='erika queiroz' />
+      </div>
       <PageHeader
         className={filtroAtivo ? 'filtroativo' : ''}
         title={filtroAtivo ? '' : titulo}
@@ -82,19 +93,25 @@ export const AreaInterna: FunctionComponent = () => {
       />
       <Tabs tabPosition='bottom' onChange={changeTab}>
         <TabPane
-          tab={<MenuItem texto='Início' icone={<HomeOutlined />} />}
+          tab={<MenuItem texto='Projetos' icone={<HomeOutlined />} />}
           key='inicio'
         >
           <Itens />
         </TabPane>
         <TabPane
-          tab={<MenuItem texto='Pessoas' icone={<UserOutlined />} />}
+          tab={<MenuItem texto='Chat' icone={<MessageOutlined />} />}
+          key='chat'
+        >
+          <span> Chat em construção</span>
+        </TabPane>
+        <TabPane
+          tab={<MenuItem texto='Clientes' icone={<UserOutlined />} />}
           key='pessoas'
         >
           <Clientes />
         </TabPane>
         <TabPane
-          tab={<MenuItem texto='Configuração' icone={<SettingOutlined />} />}
+          tab={<MenuItem texto='Configurações' icone={<SettingOutlined />} />}
           key='config'
         >
           <MinhaConta />

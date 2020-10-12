@@ -41,9 +41,9 @@ const Itens = ({ filtro = '' }: ItensProps) => {
   }
   return (
     <Content>
-      {filtro && <Title level={2}>Itens</Title>}
-      {itensFiltrados
-        .map((item) => {
+      {filtro && <Title level={2}>Projetos</Title>}
+      <div className='lista-projetos'>
+        {itensFiltrados.map((item) => {
           return (
             <div
               className='item-foto'
@@ -54,6 +54,7 @@ const Itens = ({ filtro = '' }: ItensProps) => {
             </div>
           );
         })}
+      </div>
     </Content>
   );
 }
