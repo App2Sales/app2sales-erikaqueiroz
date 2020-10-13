@@ -56,7 +56,7 @@ const FormLogin = () => {
 
         {error && errorMsg && <Alert type='error' message={errorMsg} />}
         <img src={logo} alt='erika queiroz'/>
-        <span>Faça login para começar</span>
+        <span className='faca-login'>Faça login para começar</span>
         <Form.Item
           name='usuario'
           rules={[
